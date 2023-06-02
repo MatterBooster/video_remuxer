@@ -1,6 +1,5 @@
 import time
 import subprocess
-import platform
 import os
 import argparse
 import json
