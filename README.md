@@ -14,7 +14,7 @@ To play it with FFMPEG or you can also download other video player like VLC (htt
 - python (https://ffmpeg.org/download.html)
 
 ### For installing ffmpeg: (https://github.com/ScoopInstaller/Scoop)
-Open your PowerShell and put in 
+Open your PowerShell and put in:
 ```powershell
 iwr -useb get.scoop.sh | iex
 ```
