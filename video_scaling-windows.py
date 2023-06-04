@@ -49,7 +49,7 @@ def get_gpu_details():
 
 def extract_variable_word(gpu_name):
     words = gpu_name.split()
-    AMD_word = [word for word in words if "AMD" or "NVIDIA" or "Intel" in word]
+    AMD_word = [word for word in words if "AMD" or "NVIDIA" or "Intel" or "Radeon" in word]
     return AMD_word[0] if AMD_word else ""
 
 def check_gpu_vendor(encoding_skip,encoding_method):
@@ -75,8 +75,11 @@ def check_gpu_vendor(encoding_skip,encoding_method):
     vendor0="0"
     vendor1="0"
     vendor2="0"
+    vendor3="0"
 
     for variable_name, value in vendor_variables.items():
+        if value=="Radeon":
+            value="AMD"
         if testing=="1":
             print(f'{variable_name}: {value}')
         if vendor0=="0":
@@ -253,11 +256,12 @@ if audio_codec:
 
 command = 'cls'
 subprocess.run(command, shell=True)
+print("Input as path\\to\\your\\file for example: C:\\Users\\current_user\\Pictures\n")
 input_folder = input("Enter the input folder path: ")
 
 command = 'cls'
 subprocess.run(command, shell=True)
-
+print("Input as path\\to\\your\\file for example: C:\\Users\\current_user\\Pictures\n")
 output_folder = input("Enter the output folder path: ")
 
 ##########################     Input Folder     ################################
@@ -379,7 +383,7 @@ for filename in os.listdir(input_folder):
 ####                Getting the varibles for ffmpeg                         ####
 ################################################################################
 ##########################     input_file     ################################
-        input_file = input_folder + '\\' + filename
+        input_file = '"' + input_folder + '\\' + filename + '"'
         if testing=="1":
             print("input_file: ",input_file)
             input("Press Enter to continue...")
@@ -391,16 +395,16 @@ for filename in os.listdir(input_folder):
             input("Press Enter to continue...")
 ##########################    output_file     ################################
         if extension1=="0":
-            output_file = output_folder + '\\' + name + '_' + resolution + extension0
+            output_file = '"' + output_folder + '\\' + name + '_' + resolution + extension0 + '"'
         if extension1=="1":
-            output_file = output_folder + '\\' + name + '_' + resolution + extension
+            output_file = '"' + output_folder + '\\' + name + '_' + resolution + extension + '"'
 ################################################################################
 ####                                Command                                 ####
 ################################################################################
         if testing=="1":
-            print("command: ffmpeg -i",input_file,"-vf",resolution0,codec,"-crf 23 -b:v 0 -c:a",audio_codec,"-b:a 192k",output_file)
+            print("command: ffmpeg -i",input_file,"-vf",resolution0,codec,"-crf 23 -b:v 0",audio_codec,output_file)
             input("Press Enter to continue...")
-        command = f"ffmpeg -i {input_file} -vf {resolution0} {codec} -crf 23 -b:v 0 {audio_codec} -b:a 192k {output_file}"
+        command = f"ffmpeg -i {input_file} -vf {resolution0} {codec} -crf 23 -b:v 0 {audio_codec} {output_file}"
         subprocess.run(command, shell=True)
         time.sleep(3)
 ##########################     AV1     ################################
